@@ -150,14 +150,15 @@ public class OrderService {
         Set<JenisJahitanOrder> jenisJahitanOrderSet = new HashSet<JenisJahitanOrder>();
         orderDataAdmin.getJenisJahitanOrder().forEach((data) -> {
             jenisJahitanOrderSet.add(jenisJahitanOrderService.updateJenisJahitanOrder(data));
+
         });
-        Double cp = countProgress(orderId, jenisJahitanOrderSet.size());
-        if(cp >= 100.0){
+
+        Double cp = countProgress(orderId, orderDataAdmin.getJenisJahitanOrder().size());
+        if (cp > 100.0) {
             order.setProgress(100.0);
-        }else{
+        } else {
             order.setProgress(cp);
         }
-        
 
         order.setJenisJahitanOrder(jenisJahitanOrderSet);
         Pembayaran pembayaran = pembayaranRepository.findById(orderId).get();
@@ -193,7 +194,6 @@ public class OrderService {
         orderDataAdmin.getJenisJahitanOrder().forEach((jahitan)
                 -> jenisJahitanOrderSet.add(jenisJahitanOrderService.create(order, jahitan)));
         order.setJenisJahitanOrder(jenisJahitanOrderSet);
-
         order.setProgress(countProgress(order.getId(), jenisJahitanOrderSet.size()));
 
         return order;
