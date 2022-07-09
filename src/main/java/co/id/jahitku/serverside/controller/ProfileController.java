@@ -7,6 +7,7 @@ package co.id.jahitku.serverside.controller;
 
 import co.id.jahitku.serverside.model.User;
 import co.id.jahitku.serverside.service.UserService;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public class ProfileController {
     private UserService userSevice;
     
     @GetMapping
-    public ResponseEntity<User> getByName(Authentication auth){
+    public ResponseEntity<User> getByName(@Parameter(hidden=true) Authentication auth){
         return new ResponseEntity(userSevice.getByUsername(auth.getName()),HttpStatus.OK);
     }
 }

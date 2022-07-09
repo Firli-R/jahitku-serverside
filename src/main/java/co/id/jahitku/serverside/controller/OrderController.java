@@ -13,6 +13,7 @@ import co.id.jahitku.serverside.model.dto.OrderJenisJahitan;
 import co.id.jahitku.serverside.model.dto.ResponseData;
 import co.id.jahitku.serverside.service.JenisJahitanOrderService;
 import co.id.jahitku.serverside.service.OrderService;
+import io.swagger.v3.oas.annotations.Parameter;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -52,7 +53,7 @@ public class OrderController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Order>> getOrderByUsername(Authentication auth) {
+    public ResponseEntity<List<Order>> getOrderByUsername(@Parameter(hidden=true) Authentication auth) {
         return new ResponseEntity(orderService.getOrderByUsername(auth.getName()), HttpStatus.OK);
     }
 
@@ -77,7 +78,7 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<Order> createOrderCustomer(@RequestBody Set<OrderJenisJahitan> orderDataCustomer, Authentication auth) {
+    public ResponseEntity<Order> createOrderCustomer(@RequestBody Set<OrderJenisJahitan> orderDataCustomer,@Parameter(hidden=true) Authentication auth) {
         return new ResponseEntity(orderService.createOrderCustomer(auth.getName(), orderDataCustomer), HttpStatus.CREATED);
     }
 

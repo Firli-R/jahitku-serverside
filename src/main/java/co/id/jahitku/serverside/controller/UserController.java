@@ -16,6 +16,7 @@ import co.id.jahitku.serverside.service.LoginService;
 import co.id.jahitku.serverside.service.RegistrationService;
 import co.id.jahitku.serverside.service.UserService;
 import co.id.jahitku.serverside.service.VerificationTokenService;
+import io.swagger.v3.oas.annotations.Parameter;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -58,7 +59,7 @@ public class UserController {
     }
 
     @GetMapping("/get/username")
-    public ResponseEntity<User> getByUsername(Authentication auth) {
+    public ResponseEntity<User> getByUsername(@Parameter(hidden=true) Authentication auth) {
         return new ResponseEntity(userService.getByAuth(auth.getName()), HttpStatus.OK);
     }
     @GetMapping("/validation/{username}")
@@ -91,7 +92,7 @@ public class UserController {
     }
 
     @PostMapping("/verify-page")
-    public ResponseEntity<ResponseData> pushToken(Authentication auth) {
+    public ResponseEntity<ResponseData> pushToken(@Parameter(hidden=true) Authentication auth) {
         return new ResponseEntity(regisService.manualSendEmail(auth.getName()), HttpStatus.OK);
     }
 
