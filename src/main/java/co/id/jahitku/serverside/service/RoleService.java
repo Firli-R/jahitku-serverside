@@ -6,6 +6,7 @@
 package co.id.jahitku.serverside.service;
 
 import co.id.jahitku.serverside.model.Role;
+import co.id.jahitku.serverside.model.dto.ResponseData;
 import co.id.jahitku.serverside.repository.RoleRepository;
 import co.id.jahitku.serverside.service.crud.crudInterface;
 import java.util.List;
@@ -34,8 +35,27 @@ public class RoleService implements crudInterface<Role>{
         ()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Role Tidak ditemukan")
         );
     }
-
-
+    
+    public ResponseData createRole(String nama){
+        Role role = new Role();
+        role.setNama(nama);
+        try {
+            roleRepository.save(role);
+            return new ResponseData("success", "berhasil menyimpan role");
+        } catch (Exception e) {
+            return new ResponseData("error", e.getMessage());
+        }
+    }
+    public ResponseData updateRole(Role role){
+        try {
+            roleRepository.save(role);
+            return new ResponseData("success", "berhasil menyimpan role");
+        } catch (Exception e) {
+            return new ResponseData("error", e.getMessage());
+        }
+    }
+    
+    
     @Override
     public Role delete(Long id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
