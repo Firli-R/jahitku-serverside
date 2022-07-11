@@ -44,7 +44,7 @@ public class RegistrationService {
                 throw new ResponseStatusException(HttpStatus.CONFLICT, "Email Not Valid");
             }
             String token = userService.create(user);
-            String link = "http://localhost:8085/verification-page?token=" + token;
+            String link = "https://jahitku.herokuapp.com/verification-page?token=" + token;
             EmailData emailData = new EmailData(user.getEmail(), token, "Confirm your email", userService.buildEmail(user.getNama(), link), "no Atch");
             emailService.sendVerification(emailData);
 
@@ -63,7 +63,7 @@ public class RegistrationService {
         dataToken.setExpiresAt(LocalDateTime.now().plusMinutes(30));
         verificationTokenRepository.save(dataToken);
 //        String link = "http://localhost:8083/api/user/verify?token=" + newToken;
-        String link = "http://localhost:8085/verification-page?token=" + newToken;
+        String link = "https://jahitku.herokuapp.com/verification-page?token=" + newToken;
         EmailData emailData = new EmailData(dataToken.getUser().getEmail(), newToken, "Confirm your email", userService.buildEmail(dataToken.getUser().getNama(), link), "no Atch");
         emailService.sendVerification(emailData);
         return new ResponseData("success", "cek email anda");
@@ -78,7 +78,7 @@ public class RegistrationService {
         dataToken.setCreatedAt(LocalDateTime.now());
         dataToken.setExpiresAt(LocalDateTime.now().plusMinutes(30));
         verificationTokenRepository.save(dataToken);
-        String link = "http://localhost:8083/api/user/verify?token=" + newToken;
+        String link = "https://jahitku-api.herokuapp.com/api/user/verify?token=" + newToken;
         EmailData emailData = new EmailData(dataToken.getUser().getEmail(), newToken, "Confirm your email", userService.buildEmail(dataToken.getUser().getNama(), link), "no Atch");
         emailService.sendVerification(emailData);
         return new ResponseData("success", "cek email anda");

@@ -167,7 +167,7 @@ public class OrderService {
         order.getPembayaran().setTotalBiaya(orderDataAdmin.getTotalBiaya());
 
         String linkAlamat = "https://maps.app.goo.gl/G2TPikNikbxVPw3n6";
-        String link = "http://localhost:8083/api/order/export-pdf/" + order.getNoOrder();
+        String link = "https://jahitku-api.herokuapp.com/api/order/export-pdf/" + order.getNoOrder();
 
         if (orderDataAdmin.getStatusPesanan() == Order.Status.BELUM_DIKERJAKAN) {
             EmailData emailData = new EmailData(order.getUser().getEmail(), order.getNoOrder(), "Pemberitahuan Pesanan Jahitku", buildEmailOrder(order.getUser().getNama(), linkAlamat, order.getNoOrder()), "no atch");
@@ -175,7 +175,7 @@ public class OrderService {
         }
 
         if (orderDataAdmin.getStatusPesanan() == Order.Status.DALAM_PROSES) {
-            EmailData emailData = new EmailData(order.getUser().getEmail(), order.getNoOrder(), "Pemberitahuan Pesanan Jahitku", buildEmailProcess(order.getUser().getNama(), "http://localhost:8085/homepage", linkAlamat, order.getProgress()), "no atch");
+            EmailData emailData = new EmailData(order.getUser().getEmail(), order.getNoOrder(), "Pemberitahuan Pesanan Jahitku", buildEmailProcess(order.getUser().getNama(), "https://jahitku.herokuapp.com/homepage", linkAlamat, order.getProgress()), "no atch");
             emailService.sendVerification(emailData);
         }
         if (orderDataAdmin.getStatusPesanan() == Order.Status.SELESAI) {

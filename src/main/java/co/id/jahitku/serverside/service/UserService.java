@@ -168,7 +168,7 @@ public class UserService implements crudInterface<User> {
         dataToken.setExpiresAt(LocalDateTime.now().plusMinutes(30));
         dataToken.setConfirmedAt(null);
         verificationTokenRepository.save(dataToken);
-        String link = "http://localhost:8085/verification-page?token=" + newToken;
+        String link = "https://jahitku.herokuapp.com/verification-page?token=" + newToken;
 
         userRepository.disableAppUser(userLama.getId());
         EmailData emailData = new EmailData(dataToken.getUser().getEmail(), newToken, "Confirm your email", buildEmail(dataToken.getUser().getNama(), link), "no Atch");
@@ -209,7 +209,7 @@ public class UserService implements crudInterface<User> {
 
     public List<Role> setRole() {
         List<Role> roles = new ArrayList<>();
-        roles.add(roleService.getById(2L));
+        roles.add(roleService.getById(1L));
         return roles;
     }
 
