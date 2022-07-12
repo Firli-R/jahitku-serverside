@@ -26,11 +26,9 @@ public interface VerificationTokenRepository extends JpaRepository<VerificationT
     Optional<VerificationToken> findByToken(String token);
     @Transactional
     @Modifying
-    @Query("UPDATE VerificationToken c " +
-            "SET c.confirmedAt = ?2 " +
-            "WHERE c.token = ?1")
+    @Query(value = "UPDATE tb_token SET confirmed_at=2? WHERE token=1?",nativeQuery = true)
     int updateConfirmedAt(String token,
                           LocalDateTime confirmedAt);
-    @Query(value="SELECT * FROM `tb_token` WHERE user_id = ?1",nativeQuery = true)
+    @Query(value="SELECT * FROM tb_token WHERE user_id = ?1",nativeQuery = true)
     Optional<VerificationToken> findByUserId(Long userId);
 }
