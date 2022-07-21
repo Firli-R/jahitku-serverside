@@ -88,9 +88,10 @@ public class RegistrationService {
     public ResponseData confirmToken(String token) {
 
         VerificationToken verificationToken = verificationTokenService.getToken(token);
+        verificationToken.setConfirmedAt(LocalDateTime.now());
+        verificationTokenRepository.save(verificationToken);
         if (verificationToken.getConfirmedAt() != null) {
             userService.enableAppUser(verificationToken.getUser().getEmail());
-//            verificationTokenService.setConfirmedAt(verificationToken.getToken());
             return new ResponseData(HttpStatus.CONFLICT.toString(), "Email Already Confirmed");
 
         }
@@ -99,7 +100,7 @@ public class RegistrationService {
         if (expiredAt.isBefore(LocalDateTime.now())) {
             return new ResponseData(HttpStatus.BAD_GATEWAY.toString(), "Verification Link Expired");
         }
-        verificationTokenService.setConfirmedAt(verificationToken.getToken());
+//        verificationTokenService.setConfirmedAt(verificationToken.getToken());
 
         return new ResponseData("200", "success");
     }
